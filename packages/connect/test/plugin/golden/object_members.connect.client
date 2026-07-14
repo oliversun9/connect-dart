@@ -1,0 +1,82 @@
+//
+//  Generated code. Do not modify.
+//  source: object_members.proto
+//
+
+import "package:connectrpc/connect.dart" as connect;
+import "google/protobuf/empty.pb.dart" as googleprotobufempty;
+import "object_members.connect.spec.dart" as specs;
+
+/// Rpcs named after Object instance members conflict with those members
+/// in the generated spec class (conflicting_static_and_instance) and are
+/// rejected outright by the generated client extension type
+/// (extension_type_declares_member_of_object).
+extension type ObjectMembersClient (connect.Transport _transport) {
+  Future<googleprotobufempty.Empty> toString$(
+    googleprotobufempty.Empty input, {
+    connect.Headers? headers,
+    connect.AbortSignal? signal,
+    Function(connect.Headers)? onHeader,
+    Function(connect.Headers)? onTrailer,
+  }) {
+    return connect.Client(_transport).unary(
+      specs.ObjectMembers.toString$,
+      input,
+      signal: signal,
+      headers: headers,
+      onHeader: onHeader,
+      onTrailer: onTrailer,
+    );
+  }
+
+  Future<googleprotobufempty.Empty> hashCode$(
+    googleprotobufempty.Empty input, {
+    connect.Headers? headers,
+    connect.AbortSignal? signal,
+    Function(connect.Headers)? onHeader,
+    Function(connect.Headers)? onTrailer,
+  }) {
+    return connect.Client(_transport).unary(
+      specs.ObjectMembers.hashCode$,
+      input,
+      signal: signal,
+      headers: headers,
+      onHeader: onHeader,
+      onTrailer: onTrailer,
+    );
+  }
+
+  Future<googleprotobufempty.Empty> runtimeType$(
+    googleprotobufempty.Empty input, {
+    connect.Headers? headers,
+    connect.AbortSignal? signal,
+    Function(connect.Headers)? onHeader,
+    Function(connect.Headers)? onTrailer,
+  }) {
+    return connect.Client(_transport).unary(
+      specs.ObjectMembers.runtimeType$,
+      input,
+      signal: signal,
+      headers: headers,
+      onHeader: onHeader,
+      onTrailer: onTrailer,
+    );
+  }
+
+  Future<googleprotobufempty.Empty> noSuchMethod$(
+    googleprotobufempty.Empty input, {
+    connect.Headers? headers,
+    connect.AbortSignal? signal,
+    Function(connect.Headers)? onHeader,
+    Function(connect.Headers)? onTrailer,
+  }) {
+    return connect.Client(_transport).unary(
+      specs.ObjectMembers.noSuchMethod$,
+      input,
+      signal: signal,
+      headers: headers,
+      onHeader: onHeader,
+      onTrailer: onTrailer,
+    );
+  }
+}

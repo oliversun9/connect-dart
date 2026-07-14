@@ -1,0 +1,30 @@
+// Copyright 2024-2025 The Connect Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package collision;
+
+import "google/protobuf/empty.proto";
+
+// Rpcs named after Object instance members conflict with those members
+// in the generated spec class (conflicting_static_and_instance) and are
+// rejected outright by the generated client extension type
+// (extension_type_declares_member_of_object).
+service ObjectMembers {
+  rpc ToString(google.protobuf.Empty) returns (google.protobuf.Empty);
+  rpc HashCode(google.protobuf.Empty) returns (google.protobuf.Empty);
+  rpc RuntimeType(google.protobuf.Empty) returns (google.protobuf.Empty);
+  rpc NoSuchMethod(google.protobuf.Empty) returns (google.protobuf.Empty);
+}

@@ -5,3 +5,15 @@ plugins:
     out: test/gen
 inputs:
   - module: buf.build/protocolbuffers/wellknowntypes:v27.3
+  # Message code for the plugin test fixtures, so tests can verify that
+  # generated code compiles. protoc-gen-dart v21.1.2 does not support
+  # editions, so the edition fixture is excluded.
+  #
+  # After regenerating, delete the pbjson and pbserver files for the
+  # fixtures (not for google/protobuf): the tests only need the message
+  # code, and protoc-gen-dart's pbserver output for the keyword-named
+  # rpcs in dart.proto is not valid Dart, which fails `dart format .`.
+  # Then run `dart run tools:license_header .` and `dart format .`.
+  - directory: test/plugin/proto
+    exclude_paths:
+      - test/plugin/proto/edition

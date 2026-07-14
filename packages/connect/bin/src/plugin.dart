@@ -309,6 +309,21 @@ extension on String {
     'while',
   };
 
+  // Names that already exist in the generated declarations: `name` is the
+  // fully-qualified service name constant in the spec class, the rest are
+  // Object instance members, which neither static class members nor
+  // extension type members may be named after.
+  static const _reservedMemberNames = {
+    'name',
+    'hashCode',
+    'noSuchMethod',
+    'runtimeType',
+    'toString',
+  };
+
   String get sanitizeIdentifier =>
-      _disallowedIdentifiers.contains(this) ? this + r'$' : this;
+      _disallowedIdentifiers.contains(this) ||
+              _reservedMemberNames.contains(this)
+          ? this + r'$'
+          : this;
 }

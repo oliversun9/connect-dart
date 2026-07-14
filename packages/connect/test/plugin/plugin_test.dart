@@ -80,6 +80,78 @@ void main() async {
       ]),
     );
   });
+  // https://github.com/connectrpc/connect-dart/issues/39
+  test('generates escaped names for colliding rpcs', () async {
+    expect(
+      await runPlugin(image, "name_collision.proto"),
+      matchGenerated([
+        'name_collision.connect.client',
+        'name_collision.connect.spec',
+      ]),
+    );
+    expect(
+      await runPlugin(image, "object_members.proto"),
+      matchGenerated([
+        'object_members.connect.client',
+        'object_members.connect.spec',
+      ]),
+    );
+  });
+  test('generated code compiles', () async {
+    // edition/edition.proto is missing because protoc-gen-dart v21.1.2
+    // cannot generate message code for editions.
+    // See buf.gen.test.yaml.
+    const files = [
+      "foo/v1/foo.proto",
+      "bar/bar_service.proto",
+      "wkt.proto",
+      "dart.proto",
+      "connect.proto",
+      "idempotency.proto",
+      "name_collision.proto",
+      "object_members.proto",
+    ];
+    final dir = Directory('test/plugin').createTempSync('analyze_');
+    addTearDown(() => dir.deleteSync(recursive: true));
+    var generatedCount = 0;
+    for (final file in files) {
+      final response = await runPlugin(image, file);
+      for (final generated in response.file) {
+        File(p.join(dir.path, generated.name))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(generated.content);
+        generatedCount++;
+      }
+    }
+    // A spec and a client file per proto. Guards against analyzing an
+    // empty directory and passing vacuously.
+    expect(generatedCount, files.length * 2);
+    // The message code the generated files import, from test/gen. Not
+    // the pbjson/pbserver files: nothing here imports them, and
+    // protoc-gen-dart's pbserver output for keyword rpc names is not
+    // valid Dart.
+    for (final entity in Directory('test/gen').listSync(recursive: true)) {
+      if (entity is! File ||
+          !(entity.path.endsWith('.pb.dart') ||
+              entity.path.endsWith('.pbenum.dart'))) {
+        continue;
+      }
+      File(p.join(dir.path, p.relative(entity.path, from: 'test/gen')))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(entity.readAsStringSync());
+    }
+    final result = Process.runSync('dart', [
+      'analyze',
+      '--format=machine',
+      dir.path,
+    ]);
+    expect(
+      (result.stdout as String)
+          .split('\n')
+          .where((line) => line.startsWith('ERROR|')),
+      isEmpty,
+    );
+  });
   test('generates edition 2024 file', () async {
     final response = await runPlugin(image, "edition/edition.proto");
     expect(
