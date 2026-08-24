@@ -1,9 +1,11 @@
 ## Unreleased
 
+- Escape a generated `Spec` constant that collides with the service-name constant `name`.
 - Support generating code from `.proto` files using editions (proto2 through edition 2024).
 - Require Dart 3.7
 - Require the V6 Protobuf runtime
 - Import well-known types from the runtime when needed
+- Update unary-get query parameters to match spec order: `version`, `base64`, `encoding` and `message`.
 
 ## 1.0.0
 
