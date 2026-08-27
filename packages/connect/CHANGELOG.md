@@ -1,4 +1,4 @@
-## Unreleased
+## 2.0.0
 
 - Escape a generated `Spec` constant that collides with the service-name constant `name`.
 - Support generating code from `.proto` files using editions (proto2 through edition 2024).
