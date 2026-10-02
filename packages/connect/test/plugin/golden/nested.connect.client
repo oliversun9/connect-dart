@@ -1,0 +1,44 @@
+//
+//  Generated code. Do not modify.
+//  source: nested.proto
+//
+
+import "package:connectrpc/connect.dart" as connect;
+import "nested.pb.dart" as nested;
+import "nested.connect.spec.dart" as specs;
+
+extension type DashboardClient (connect.Transport _transport) {
+  Future<nested.GetState_Output> getState(
+    nested.GetState_Input input, {
+    connect.Headers? headers,
+    connect.AbortSignal? signal,
+    Function(connect.Headers)? onHeader,
+    Function(connect.Headers)? onTrailer,
+  }) {
+    return connect.Client(_transport).unary(
+      specs.Dashboard.getState,
+      input,
+      signal: signal,
+      headers: headers,
+      onHeader: onHeader,
+      onTrailer: onTrailer,
+    );
+  }
+
+  Future<nested.Stop_Output> stop(
+    nested.Stop_Input input, {
+    connect.Headers? headers,
+    connect.AbortSignal? signal,
+    Function(connect.Headers)? onHeader,
+    Function(connect.Headers)? onTrailer,
+  }) {
+    return connect.Client(_transport).unary(
+      specs.Dashboard.stop,
+      input,
+      signal: signal,
+      headers: headers,
+      onHeader: onHeader,
+      onTrailer: onTrailer,
+    );
+  }
+}
