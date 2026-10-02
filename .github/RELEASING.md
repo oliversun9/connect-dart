@@ -16,7 +16,8 @@
 4. Commit, push, and open a pull request with the title "Release 1.2.3".
 5. Edit the PR description with release notes. See the section below for details.
 6. Make sure CI passed on your PR and ask a maintainer for review.
-7. After approval, run the following command to publish to pub.dev: `dart pub publish`.
+7. After approval, run the following command from the repository root to publish
+   to pub.dev: `dart pub publish --directory packages/connect`.
 8. Merge your PR.
 9. Create a new release in the GitHub UI
    - Choose "v1.2.3" as a tag and as the release title.
